@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
         }
 
         // Bucket Sort
+        /*
         {
             std::vector<int> data = original_data;
 
@@ -69,6 +70,7 @@ int main(int argc, char* argv[])
                           << "\n";
             }
         }
+        */
 
         // Odd-Even Sort
         /*
@@ -110,7 +112,7 @@ int main(int argc, char* argv[])
         }*/
 
         // Ranking Sort
-        /*
+        
         {
             std::vector<int> data = original_data;
 
@@ -137,7 +139,7 @@ int main(int argc, char* argv[])
                           << "\n";
             }
         }
-        */
+        
 
         // Shell Sort
         /*
