@@ -2,7 +2,7 @@
 #include <iostream>
 #include <random>
 
-std::vector<int> generate_random_array(int n, int min_val, int max_val) {
+std::vector<int> GenerateRandomArray(int n, int min_val, int max_val) {
     std::vector<int> arr(n);
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -15,7 +15,7 @@ std::vector<int> generate_random_array(int n, int min_val, int max_val) {
     return arr;
 }
 
-bool is_sorted_array(const std::vector<int>& arr) {
+bool IsSorted(const std::vector<int>& arr) {
     for (size_t i = 1; i < arr.size(); i++) {
         if (arr[i - 1] > arr[i]) {
             return false;
@@ -24,7 +24,7 @@ bool is_sorted_array(const std::vector<int>& arr) {
     return true;
 }
 
-void print_array(const std::vector<int>& arr, const std::string& label) {
+void PrintArray(const std::vector<int>& arr, const std::string& label) {
     std::cout << label << ": ";
     for (int x : arr) {
         std::cout << x << " ";
