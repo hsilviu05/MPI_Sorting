@@ -1,0 +1,39 @@
+# Executables
+sorting
+*.out
+*.app
+
+# Object files
+*.o
+*.obj
+
+# Debug symbols / build artifacts
+*.dSYM/
+*.exe
+*.a
+*.so
+*.dll
+*.dylib
+
+# VSCode
+.vscode/settings.json
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# CMake / Make build folders if you ever use them
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+
+# MPI runtime output files if generated
+*.rank

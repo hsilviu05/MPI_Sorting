@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build mpi sorting project",
+            "type": "shell",
+            "command": "/opt/homebrew/bin/mpic++",
+            "args": [
+                "-std=c++17",
+                "-fdiagnostics-color=always",
+                "-g",
+                "src/main.cpp",
+                "src/utils.cpp",
+                "src/ranking_sort.cpp",
+                "src/bucket_sort.cpp",
+                "src/odd_even_sort.cpp",
+                "src/shell_sort.cpp",
+                "src/bitonic_sort.cpp",
+                "-o",
+                "sorting"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
