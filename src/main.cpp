@@ -43,7 +43,6 @@ int main(int argc, char* argv[])
         }
 
         // Bucket Sort
-        /*
         {
             std::vector<int> data = original_data;
 
@@ -70,10 +69,9 @@ int main(int argc, char* argv[])
                           << "\n";
             }
         }
-        */
 
         // Odd-Even Sort
-        /*
+        
         {
             if (array_size % size != 0)
             {
@@ -109,7 +107,7 @@ int main(int argc, char* argv[])
                               << "\n";
                 }
             }
-        }*/
+        }
 
         // Ranking Sort
         
@@ -142,7 +140,7 @@ int main(int argc, char* argv[])
         
 
         // Shell Sort
-        /*
+
         {
             std::vector<int> data = original_data;
 
@@ -169,10 +167,9 @@ int main(int argc, char* argv[])
                           << "\n";
             }
         }
-        */
 
         // Bitonic Sort
-        /*
+
         {
             std::vector<int> data = original_data;
 
@@ -199,7 +196,6 @@ int main(int argc, char* argv[])
                           << "\n";
             }
         }
-        */
     }
 
     MPI_Finalize();
