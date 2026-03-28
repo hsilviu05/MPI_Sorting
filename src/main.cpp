@@ -14,7 +14,8 @@ int main(int argc, char* argv[])
 {
     MPI_Init(&argc, &argv);
 
-    int rank, size;
+    int rank;
+    int size;
 
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -23,7 +24,7 @@ int main(int argc, char* argv[])
 
     if (rank == 0)
     {
-        std::cout << "MPI Odd-Even Sort\n";
+        std::cout << "MPI Sorting\n";
         std::cout << "Numar procese: " << size << "\n";
     }
 
@@ -31,47 +32,172 @@ int main(int argc, char* argv[])
     {
         if (rank == 0)
         {
-            std::cout << "Dimensiune vector: " << array_size << "\n";
+            std::cout << "\nDimensiune vector: " << array_size << "\n";
         }
 
-        if (array_size % size != 0)
+        std::vector<int> original_data;
+
+        if (rank == 0)
         {
+            original_data = GenerateRandomArray(array_size);
+        }
+
+        // Bucket Sort
+        {
+            std::vector<int> data = original_data;
+
+            double communication_time = 0.0;
+            double computation_time = 0.0;
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_start_time = MPI_Wtime();
+
+            MPI_BucketSort(data, rank, size, communication_time, computation_time);
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_end_time = MPI_Wtime();
+
             if (rank == 0)
             {
-                std::cout << "[Odd-Even] dimensiunea vectorului nu este divizibila cu numarul de procese.\n";
+                const bool sorted_correctly = IsSorted(data);
+                const double total_execution_time = total_end_time - total_start_time;
+
+                std::cout << "[Bucket]   Total: " << total_execution_time
+                          << " | Communication: " << communication_time
+                          << " | Computation: " << computation_time
+                          << " | Sorted: " << (sorted_correctly ? "Yes" : "No")
+                          << "\n";
             }
-            continue;
         }
 
-        std::vector<int> data;
-
-        if (rank == 0)
+        // Odd-Even Sort
+        /*
         {
-            data = GenerateRandomArray(array_size);
-        }
+            if (array_size % size != 0)
+            {
+                if (rank == 0)
+                {
+                    std::cout << "[Odd-Even] Dimensiunea vectorului nu este divizibila cu numarul de procese.\n";
+                }
+            }
+            else
+            {
+                std::vector<int> data = original_data;
 
-        double communication_time = 0.0;
-        double computation_time = 0.0;
+                double communication_time = 0.0;
+                double computation_time = 0.0;
 
-        MPI_Barrier(MPI_COMM_WORLD);
-        const double total_start_time = MPI_Wtime();
+                MPI_Barrier(MPI_COMM_WORLD);
+                const double total_start_time = MPI_Wtime();
 
-        MPI_OddEvenSort(data, rank, size, communication_time, computation_time);
+                MPI_OddEvenSort(data, rank, size, communication_time, computation_time);
 
-        MPI_Barrier(MPI_COMM_WORLD);
-        const double total_end_time = MPI_Wtime();
+                MPI_Barrier(MPI_COMM_WORLD);
+                const double total_end_time = MPI_Wtime();
 
-        if (rank == 0)
+                if (rank == 0)
+                {
+                    const bool sorted_correctly = IsSorted(data);
+                    const double total_execution_time = total_end_time - total_start_time;
+
+                    std::cout << "[Odd-Even] Total: " << total_execution_time
+                              << " | Communication: " << communication_time
+                              << " | Computation: " << computation_time
+                              << " | Sorted: " << (sorted_correctly ? "Yes" : "No")
+                              << "\n";
+                }
+            }
+        }*/
+
+        // Ranking Sort
+        /*
         {
-            const bool sorted_correctly = IsSorted(data);
-            const double total_execution_time = total_end_time - total_start_time;
+            std::vector<int> data = original_data;
 
-            std::cout << "[Odd-Even] Total: " << total_execution_time
-                      << " | Communication: " << communication_time
-                      << " | Computation: " << computation_time
-                      << " | Sorted: " << (sorted_correctly ? "Yes" : "No")
-                      << "\n";
+            double communication_time = 0.0;
+            double computation_time = 0.0;
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_start_time = MPI_Wtime();
+
+            MPI_RankingSort(data, rank, size, communication_time, computation_time);
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_end_time = MPI_Wtime();
+
+            if (rank == 0)
+            {
+                const bool sorted_correctly = IsSorted(data);
+                const double total_execution_time = total_end_time - total_start_time;
+
+                std::cout << "[Ranking]  Total: " << total_execution_time
+                          << " | Communication: " << communication_time
+                          << " | Computation: " << computation_time
+                          << " | Sorted: " << (sorted_correctly ? "Yes" : "No")
+                          << "\n";
+            }
         }
+        */
+
+        // Shell Sort
+        /*
+        {
+            std::vector<int> data = original_data;
+
+            double communication_time = 0.0;
+            double computation_time = 0.0;
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_start_time = MPI_Wtime();
+
+            MPI_ShellSort(data, rank, size, communication_time, computation_time);
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_end_time = MPI_Wtime();
+
+            if (rank == 0)
+            {
+                const bool sorted_correctly = IsSorted(data);
+                const double total_execution_time = total_end_time - total_start_time;
+
+                std::cout << "[Shell]    Total: " << total_execution_time
+                          << " | Communication: " << communication_time
+                          << " | Computation: " << computation_time
+                          << " | Sorted: " << (sorted_correctly ? "Yes" : "No")
+                          << "\n";
+            }
+        }
+        */
+
+        // Bitonic Sort
+        /*
+        {
+            std::vector<int> data = original_data;
+
+            double communication_time = 0.0;
+            double computation_time = 0.0;
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_start_time = MPI_Wtime();
+
+            MPI_BitonicSort(data, rank, size, communication_time, computation_time);
+
+            MPI_Barrier(MPI_COMM_WORLD);
+            const double total_end_time = MPI_Wtime();
+
+            if (rank == 0)
+            {
+                const bool sorted_correctly = IsSorted(data);
+                const double total_execution_time = total_end_time - total_start_time;
+
+                std::cout << "[Bitonic]  Total: " << total_execution_time
+                          << " | Communication: " << communication_time
+                          << " | Computation: " << computation_time
+                          << " | Sorted: " << (sorted_correctly ? "Yes" : "No")
+                          << "\n";
+            }
+        }
+        */
     }
 
     MPI_Finalize();
