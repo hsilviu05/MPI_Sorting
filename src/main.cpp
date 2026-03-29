@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
         }
 
         // Ranking Sort
-        
+        /*
         {
             std::vector<int> data = original_data;
 
@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
                           << "\n";
             }
         }
-        
+        */
 
         // Shell Sort
 
